@@ -110,7 +110,7 @@ public class Examen1 {
                             eInicial = entrada.nextFloat();
                             System.out.println("i\ta\tb\txm\tf(xm)\terror");
                             do {
-                                //Por bloques
+                                //Por iteraciones
 
                                 xr = (a + b) / 2;
 
@@ -132,7 +132,7 @@ public class Examen1 {
                                 
                                 //System.out.println(i+"----"+in);
                                  
-                            } while (eP >= eInicial);
+                            } while (!(eP >= eInicial && i==in));
                         } else {
                             //Condicion del contador de vecees
                             System.out.println("Valores de a y b no tienen una raiz solucion");
