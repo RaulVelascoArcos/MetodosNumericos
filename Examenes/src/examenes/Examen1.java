@@ -11,7 +11,7 @@ public class Examen1 {
        //Declaracion de variables
         float a, b, fa, fb, xr, eInicial = 0, eP = 0, m = 0, erroAcu = 0;
         Double fxr;
-        int i = 1, k = 1, in;
+        int i = 1, k = 1, in,ib = 0;
        int opc;
        String cont ;
        //Comparacion para realisar otra funcion
@@ -105,47 +105,46 @@ public class Examen1 {
                         fb = (float) (2 * b * Math.exp(-0.5 * b) + 3 * b - 20);
                         //Condicion que este en el intervalo 
                         if (fa * fb < 0) {
-
+                            //Se solicita el error permitido 
                             System.out.println("Ingrese el error permitido");
                             eInicial = entrada.nextFloat();
+                            //Imprecion de cabezera de la tabla
                             System.out.println("i\ta\tb\txm\tf(xm)\terror");
-                            do {
-                                //Por iteraciones
-
-                                xr = (a + b) / 2;
-
-                                fxr = (2 * xr * Math.exp(-0.5 * xr) + 3 * xr - 20);
-
-                                //Cambio de intervalos
-                                if (fa * fxr < 0) {
-                                    a = a;
-                                    b = xr;
-                                } else {
-                                    a = xr;
-                                    b = b;
-                                }
-                                //Calculo del error
-                                eP = 100 * (Math.abs((xr - erroAcu) / xr));
-                                erroAcu = xr;
-                                i++;
-                                System.out.println(i + "\t" + String.format("%.3f", a) + "\t" + String.format("%.3f", b) + "\t" + String.format("%.3f", xr) + "\t" + String.format("%.3f", fxr) + "\t" + String.format("%.3f", eP));
-                                
-                                //System.out.println(i+"----"+in);
-                                 
-                            } while (!(eP >= eInicial && i==in));
+                            //Inicio del ciclo para calcular las funciones
+                            for(ib=i;ib<in;ib++){
+                               //Calculo del intervalo
+                               xr = (a + b) / 2;
+                               fxr = (2 * xr * Math.exp(-0.5 * xr) + 3 * xr - 20);
+                               //Cambio de intervalos
+                               if (fa * fxr < 0) {
+                                   a = a;
+                                   b = xr;
+                               } else {
+                                   a = xr;
+                                   b = b;
+                               }
+                               //Calculo del error
+                               eP = 100 * (Math.abs((xr - erroAcu) / xr));
+                               erroAcu = xr;
+                               i++;
+                               System.out.println(i + "\t" + String.format("%.3f", a) + "\t" + String.format("%.3f", b) + "\t" + String.format("%.3f", xr) + "\t" + String.format("%.3f", fxr) + "\t" + String.format("%.3f", eP));
+                              
+                            }//Fin del ciclo
                         } else {
                             //Condicion del contador de vecees
                             System.out.println("Valores de a y b no tienen una raiz solucion");
                             k++;
+                            System.out.println("K"+k);
                             //Comparacion logica para el numero de intentos
                             if (k == 4) {
                                 System.out.println("Sugerencia a=-5,b=10");
                             }
                             
                         }
-                        System.out.println(i+"----"+in);
+                        
                     } while ((k < 0) || (eP >= eInicial));
-                    
+                    //Fin del bloque de iteraciones
+                    //(eP >= eInicial) 
                 }else{
                     System.out.println("Opcion invalida");
                 }
