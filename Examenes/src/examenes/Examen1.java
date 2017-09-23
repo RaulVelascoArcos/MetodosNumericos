@@ -151,6 +151,125 @@ public class Examen1 {
                  
             }else if(opc==2){
                 System.out.println("2.g(x)=cos(-0.5x2+2x)+1.125x-6.14");
+                
+                System.out.println("\tMENU\n1)Por bloques\n2)Por iteracciones");
+                System.out.println("Opcion :");
+                int opcv = entrada.nextInt();
+                if (opcv == 1) {
+                    //Inicia el codigo por bloques 
+                    System.out.println("Por bloques");
+                    do {
+
+                        System.out.println("Valor de a");
+                        a = entrada.nextFloat();
+                        System.out.println("Valor de b");
+                        b = entrada.nextFloat();
+                        //Sustitucion de a y b para la funcion 
+                        fa = (float) (Math.cos(-0.5*Math.pow(-a, 3)+2*a)+1.125*a-6.14);
+                        fb = (float) (Math.cos(-0.5*Math.pow(-b, 3)+2*b)+1.125*b-6.14);
+                        //Condicion que este en el intervalo 
+                        if (fa * fb < 0) {
+
+                            System.out.println("Ingrese el error permitido");
+                            eInicial = entrada.nextFloat();
+                            do {
+                                //Por bloques
+                                System.out.println("Iteracion=" + i);
+
+                                System.out.println("f(" + a + "= " + fa);
+                                System.out.println("f(" + b + "= " + fb);
+
+                                xr = (a + b) / 2;
+
+                                fxr = (Math.cos(-0.5*Math.pow(-xr, 3)+2*xr)+1.125*xr-6.14);
+                                System.out.println("f(" + fxr + ") =" + fxr);
+
+                                //Cambio de intervalos
+                                if (fa * fxr < 0) {
+                                    a = a;
+                                    b = xr;
+                                } else {
+                                    a = xr;
+                                    b = b;
+                                }
+                                //Calculo del error
+                                eP = 100 * (Math.abs((xr - erroAcu) / xr));
+                                erroAcu = xr;
+                                i++;
+
+                            } while (eP >= eInicial);
+                        } else {
+                            //Condicion del contador de vecees
+                            System.out.println("Valores de a y b no tienen una raiz solucion");
+                            k++;
+
+                            if (k == 4) {
+                                System.out.println("Sugerencia a=-5,b=10");
+                            }
+
+                        }
+                    } while ((k < 0) || (eP >= eInicial));
+                }//Terminal el codigo por bloques
+                else if (opcv == 2) {//Inicio por iteraciones
+                    //Inicia Por iteracsiones
+
+                    System.out.println("Por iteracsiones ");
+                    do {
+
+                        System.out.println("Valor de a");
+                        a = entrada.nextFloat();
+                        System.out.println("Valor de b");
+                        b = entrada.nextFloat();
+                        System.out.println("Numero de iteraciones");
+                        in = entrada.nextInt();
+                        //Sustitucion de a y b para la funcion 
+                        fa = (float) (Math.cos(-0.5*Math.pow(-a, 3)+2*a)+1.125*a-6.14);
+                        fb = (float) (Math.cos(-0.5*Math.pow(-b, 3)+2*b)+1.125*b-6.14);
+                        //Condicion que este en el intervalo 
+                        if (fa * fb < 0) {
+                            //Se solicita el error permitido 
+                            System.out.println("Ingrese el error permitido");
+                            eInicial = entrada.nextFloat();
+                            //Imprecion de cabezera de la tabla
+                            System.out.println("i\ta\tb\txm\tf(xm)\terror");
+                            //Inicio del ciclo para calcular las funciones
+                            for (ib = i; ib < in; ib++) {
+                                //Calculo del intervalo
+                                xr = (a + b) / 2;
+                                fxr = (Math.cos(-0.5*Math.pow(-xr, 3)+2*xr)+1.125*xr-6.14);
+                                //Cambio de intervalos
+                                if (fa * fxr < 0) {
+                                    a = a;
+                                    b = xr;
+                                } else {
+                                    a = xr;
+                                    b = b;
+                                }
+                                //Calculo del error
+                                eP = 100 * (Math.abs((xr - erroAcu) / xr));
+                                erroAcu = xr;
+                                i++;
+                                System.out.println(i + "\t" + String.format("%.3f", a) + "\t" + String.format("%.3f", b) + "\t" + String.format("%.3f", xr) + "\t" + String.format("%.3f", fxr) + "\t" + String.format("%.3f", eP));
+
+                            }//Fin del ciclo
+                        } else {
+                            //Condicion del contador de vecees
+                            System.out.println("Valores de a y b no tienen una raiz solucion");
+                            k++;
+                            System.out.println("K" + k);
+                            //Comparacion logica para el numero de intentos
+                            if (k == 4) {
+                                System.out.println("Sugerencia a=-5,b=10");
+                            }
+
+                        }
+
+                    } while ((k < 0) || (eP >= eInicial));
+                    //Fin del bloque de iteraciones
+                    //(eP >= eInicial) 
+                } else {
+                    System.out.println("Opcion invalida");
+                }
             }else{
                 System.out.println("Opcion invalida intente de nuevo ");
             }
